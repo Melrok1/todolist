@@ -13,7 +13,7 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
-import DatePicker from "../components/InputComponents/DatePicker.vue";
+import DatePicker from "./InputComponents/DatePicker.vue";
 import TextInput from "@/components/InputComponents/TextInput.vue";
 
 export default defineComponent({
@@ -68,6 +68,7 @@ export default defineComponent({
   margin: 1rem auto 3rem;
   padding: 1rem;
   border: 1px solid rgb(179, 179, 179);
+  background: rgb(235, 235, 235);
   border-radius: $border-radius;
   box-shadow: $shadow-1;
 

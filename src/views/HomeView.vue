@@ -2,18 +2,20 @@
   <div class="home">
     <button @click="toggleAddTodoForm">Add new list</button>
     <add-new-todo-vue v-if="isAddTodoFormVisible"/>
+    <todo-list-vue />
   </div>
 </template>
 
 <script lang="ts">
-import { useStore } from 'vuex';
-import AddNewTodoVue from "@/components/AddNewTodo.vue";
 import { defineComponent, computed } from "vue";
+import { useStore } from 'vuex';
+import AddNewTodoVue from "@/components/AddNewTodoForm.vue";
+import TodoListVue from "@/components/TodoComponents/TodoList.vue";
 
 export default defineComponent({
   name: "HomeView",
   components: {
-    AddNewTodoVue,
+    AddNewTodoVue, TodoListVue
   },
   setup() {
     const store = useStore();
@@ -33,8 +35,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="scss" scoped>
-
-
-</style>

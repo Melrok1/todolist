@@ -1,29 +1,25 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
-
-// interface
-export interface ModalState {
-  isAddNewTodoModalVisible: boolean;
-}
+import { ModalStateType } from "@/components/interface/interface";
 
 // init state
-const state: ModalState = {
+const state: ModalStateType = {
   isAddNewTodoModalVisible: false,
 };
 
 // getters
-const getters: GetterTree<ModalState, any> = {
+const getters: GetterTree<ModalStateType, any> = {
   isAddNewTodoModalVisible: (state) => state.isAddNewTodoModalVisible,
 };
 
 // mutations
-const mutations: MutationTree<ModalState> = {
+const mutations: MutationTree<ModalStateType> = {
   SET_ADD_NEW_TODO_MODAL_VISIBILITY(state, isVisible: boolean) {
     state.isAddNewTodoModalVisible = isVisible;
   },
 };
 
 // actions
-const actions: ActionTree<ModalState, any> = {
+const actions: ActionTree<ModalStateType, any> = {
   setAddNewTodoModal({ commit }, isVisible: boolean) {
     commit("SET_ADD_NEW_TODO_MODAL_VISIBILITY", isVisible);
   },

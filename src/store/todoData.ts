@@ -1,36 +1,26 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
-
-// interface
-export interface TodoItem {
-  title: string;
-  content: string;
-  dueDate: Date | null;
-}
-
-export interface TodoState {
-  todos: TodoItem[];
-}
+import { TodoItemType, TodoStateType } from "@/components/interface/interface";
 
 // init state
-const state: TodoState = {
+const state: TodoStateType = {
   todos: [],
 };
 
 // getters
-const getters: GetterTree<TodoState, any> = {
+const getters: GetterTree<TodoStateType, any> = {
   allTodos: (state) => state.todos,
 };
 
 // actions
-const actions: ActionTree<TodoState, any> = {
-  addTodo({ commit }, todoItem: TodoItem) {
+const actions: ActionTree<TodoStateType, any> = {
+  addTodo({ commit }, todoItem: TodoItemType) {
     commit("ADD_TODO", todoItem);
   },
 };
 
 // mutations
-const mutations: MutationTree<TodoState> = {
-  ADD_TODO(state, todoItem: TodoItem) {
+const mutations: MutationTree<TodoStateType> = {
+  ADD_TODO(state, todoItem: TodoItemType) {
     state.todos.push(todoItem);
   },
 };

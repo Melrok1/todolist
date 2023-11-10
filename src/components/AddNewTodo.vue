@@ -1,8 +1,8 @@
 <template>
   <div class="add-new-todo-wrapper">
-    <text-input placeholder="test" />
-    <text-input placeholder="test2" />
-    <date-picker />
+    <text-input v-model="title" placeholder="test" />
+    <text-input v-model="content" placeholder="test2" />
+    <date-picker v-model="expirationDate" />
     <div class="add-new-todo-buttons">
       <button @click="saveTodo">Save</button>
       <button @click="closeAddTodoForm">Cancel</button>
@@ -22,64 +22,44 @@ export default defineComponent({
     DatePicker,
     TextInput,
   },
-	setup() {
-		const store = useStore();
-		const title = ref('');
-		const content = ref('');
-		const expirationDate = ref<Date | null>(null);
+  setup() {
+    const store = useStore();
+    const title = ref("");
+    const content = ref("");
+    const expirationDate = ref<Date | null>(null);
 
-		const closeAddTodoForm = () => {
-			store.dispatch('modalState/setAddNewTodoModal', false);
-		}
+    const closeAddTodoForm = () => {
+      store.dispatch("modalState/setAddNewTodoModal", false);
+    };
 
-		const saveTodo = () => {
-			const newTodo = {
-				title: title.value,
-				content: content.value,
-				expirationDate: expirationDate.value
-			};
+    const saveTodo = () => {
+      const newTodo = {
+        title: title.value,
+        content: content.value,
+        expirationDate: expirationDate.value,
+      };
 
-			store.dispatch('todoData/addTodo', newTodo);
-			closeAddTodoForm();
-		}
+      store.dispatch("todoData/addTodo", newTodo);
+      closeAddTodoForm();
+    };
 
-		return {
-			closeAddTodoForm,
-			saveTodo,
-			title,
-			content,
-			expirationDate,
-		}
-	}
+    return {
+      closeAddTodoForm,
+      saveTodo,
+      title,
+      content,
+      expirationDate,
+    };
+  },
 });
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <style lang="scss" scoped>
 .add-new-todo-wrapper {
+	position: absolute;
+	top: 15%;
+	left: 50%;
+	transform: translate(-50%,-50%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -91,8 +71,8 @@ export default defineComponent({
   border-radius: $border-radius;
   box-shadow: $shadow-1;
 
-	@include response-above(sm) {
-		max-width: 40rem;
-	}
+  @include response-above(sm) {
+    max-width: 40rem;
+  }
 }
 </style>

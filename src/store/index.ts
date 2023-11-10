@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import modalState from "./modalState";
+import todoData from "./todoData";
 
 export default createStore({
   state: {},
@@ -8,5 +9,6 @@ export default createStore({
   actions: {},
   modules: {
     modalState,
+    todoData,
   },
 });

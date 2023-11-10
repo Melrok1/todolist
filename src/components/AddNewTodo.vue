@@ -4,14 +4,14 @@
     <text-input placeholder="test2" />
     <date-picker />
     <div class="add-new-todo-buttons">
-      <button>Save</button>
-      <button @click="closeAddListForm">Cancel</button>
+      <button @click="saveTodo">Save</button>
+      <button @click="closeAddTodoForm">Cancel</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
 import DatePicker from "../components/InputComponents/DatePicker.vue";
 import TextInput from "@/components/InputComponents/TextInput.vue";
@@ -24,16 +24,59 @@ export default defineComponent({
   },
 	setup() {
 		const store = useStore();
-		const closeAddListForm = () => {
-			store.dispatch('modalState/setAddNewListModal', false);
+		const title = ref('');
+		const content = ref('');
+		const expirationDate = ref<Date | null>(null);
+
+		const closeAddTodoForm = () => {
+			store.dispatch('modalState/setAddNewTodoModal', false);
+		}
+
+		const saveTodo = () => {
+			const newTodo = {
+				title: title.value,
+				content: content.value,
+				expirationDate: expirationDate.value
+			};
+
+			store.dispatch('todoData/addTodo', newTodo);
+			closeAddTodoForm();
 		}
 
 		return {
-			closeAddListForm
+			closeAddTodoForm,
+			saveTodo,
+			title,
+			content,
+			expirationDate,
 		}
 	}
 });
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <style lang="scss" scoped>
 .add-new-todo-wrapper {

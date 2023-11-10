@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <button @click="toggleAddListForm">Add new list</button>
-    <add-new-todo-vue v-if="isAddListFormVisible"/>
+    <button @click="toggleAddTodoForm">Add new list</button>
+    <add-new-todo-vue v-if="isAddTodoFormVisible"/>
   </div>
 </template>
 
@@ -18,17 +18,17 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const isAddListFormVisible = computed(
-      () => store.getters['modalState/isAddNewListModalVisible']
+    const isAddTodoFormVisible = computed(
+      () => store.getters['modalState/isAddNewTodoModalVisible']
     );
 
-    const toggleAddListForm = () => {
-      store.dispatch('modalState/setAddNewListModal', !isAddListFormVisible.value);
+    const toggleAddTodoForm = () => {
+      store.dispatch('modalState/setAddNewTodoModal', !isAddTodoFormVisible.value);
     };
 
     return {
-      isAddListFormVisible,
-      toggleAddListForm
+      isAddTodoFormVisible,
+      toggleAddTodoForm
     };
   },
 });

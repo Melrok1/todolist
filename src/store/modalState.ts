@@ -23,7 +23,7 @@ const mutations: MutationTree<ModalState> = {
 
 // actions
 const actions: ActionTree<ModalState, any> = {
-  toggleAddNewListModal({ commit }, isVisible: boolean) {
+  setAddNewListModal({ commit }, isVisible: boolean) {
     commit("SET_ADD_NEW_LIST_MODAL_VISIBILITY", isVisible);
   },
 };

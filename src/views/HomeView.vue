@@ -23,7 +23,7 @@ export default defineComponent({
     );
 
     const toggleAddListForm = () => {
-      store.dispatch('modalState/toggleAddNewListModal', !isAddListFormVisible.value);
+      store.dispatch('modalState/setAddNewListModal', !isAddListFormVisible.value);
     };
 
     return {

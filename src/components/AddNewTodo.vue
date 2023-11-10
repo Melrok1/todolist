@@ -5,13 +5,14 @@
     <date-picker />
     <div class="add-new-todo-buttons">
       <button>Save</button>
-      <button>Cancel</button>
+      <button @click="closeAddListForm">Cancel</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useStore } from "vuex";
 import DatePicker from "../components/InputComponents/DatePicker.vue";
 import TextInput from "@/components/InputComponents/TextInput.vue";
 
@@ -21,6 +22,16 @@ export default defineComponent({
     DatePicker,
     TextInput,
   },
+	setup() {
+		const store = useStore();
+		const closeAddListForm = () => {
+			store.dispatch('modalState/setAddNewListModal', false);
+		}
+
+		return {
+			closeAddListForm
+		}
+	}
 });
 </script>
 

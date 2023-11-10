@@ -6,8 +6,9 @@
 </template>
 
 <script lang="ts">
+import { useStore } from 'vuex';
 import AddNewTodoVue from "@/components/AddNewTodo.vue";
-import { defineComponent, ref } from "vue";
+import { defineComponent, computed } from "vue";
 
 export default defineComponent({
   name: "HomeView",
@@ -15,10 +16,14 @@ export default defineComponent({
     AddNewTodoVue,
   },
   setup() {
-    const isAddListFormVisible = ref(false);
+    const store = useStore();
+
+    const isAddListFormVisible = computed(
+      () => store.getters['modalState/isAddNewListModalVisible']
+    );
 
     const toggleAddListForm = () => {
-      isAddListFormVisible.value = !isAddListFormVisible.value;
+      store.dispatch('modalState/toggleAddNewListModal', !isAddListFormVisible.value);
     };
 
     return {

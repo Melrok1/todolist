@@ -5,7 +5,7 @@
     <date-picker />
     <div class="add-new-todo-buttons">
       <button>Save</button>
-      <button>close</button>
+      <button>Cancel</button>
     </div>
   </div>
 </template>

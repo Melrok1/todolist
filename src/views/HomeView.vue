@@ -1,17 +1,30 @@
 <template>
   <div class="home">
-    <add-new-todo-vue />
+    <button @click="toggleAddListForm">Add new list</button>
+    <add-new-todo-vue v-if="isAddListFormVisible"/>
   </div>
 </template>
 
 <script lang="ts">
-import AddNewTodoVue from '@/components/AddNewTodo.vue';
-import { defineComponent } from 'vue';
+import AddNewTodoVue from "@/components/AddNewTodo.vue";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
-  name: 'HomeView',
+  name: "HomeView",
   components: {
-    AddNewTodoVue
+    AddNewTodoVue,
+  },
+  setup() {
+    const isAddListFormVisible = ref(false);
+
+    const toggleAddListForm = () => {
+      isAddListFormVisible.value = !isAddListFormVisible.value;
+    };
+
+    return {
+      isAddListFormVisible,
+      toggleAddListForm
+    };
   },
 });
 </script>

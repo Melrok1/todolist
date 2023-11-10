@@ -1,0 +1,31 @@
+// Colors
+$color-shadow: #000000;
+$color-border: #cccccc;
+$color-text: #333333;
+$color-primary: #0056b3;
+$color-secondary: #6c757d;
+
+// Border Radius
+$border-radius: 0.6rem;
+
+// Border
+$border-width: 1px;
+$border-style: solid;
+$border-color: $color-border;
+$border: $border-width $border-style $border-color;
+
+// Font sizes
+$font-sm: 0.875rem;
+$font-md: 1rem;
+$font-lg: 1.25rem;
+$font-xl: 1.5rem;
+
+// Shadow
+$shadow-1: 0px 0px 5px #bdbaba;
+
+// Breakpoints
+$breakpoints: (
+  'sm': 576px,
+  'md': 768px,
+  'lg': 992px,
+);

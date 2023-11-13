@@ -1,15 +1,19 @@
 <template>
   <div class="todo-item-wrapper">
-    <header>
+    <div class="todo-control">
       <icon name="edit" />
       <span :class="isRemainingTime ? 'success-message' : 'error-message'">{{ remainingTime }}</span>
       <icon name="trash" />
       <!-- 
         <icon name="checkbox"/>
       -->
-    </header>
+    </div>
     <article>
-      <h3>{{ todo.title }}</h3>
+      <header>
+        <icon name="checkbox" />
+        <h3>{{ todo.title }}</h3>
+
+      </header>
       <span>{{ todo.content }}</span>
     </article>
   </div>
@@ -83,19 +87,29 @@ export default defineComponent({
 .todo-item-wrapper {
 	max-width: $todo-item-max-width;
   margin: 1rem auto;
-  padding: 1rem;
+  padding-bottom: 0.25rem;
   border: $border;
   border-radius: $border-radius;
 
-	header {
+	.todo-control {
 		flex-wrap: wrap;
-    margin-bottom: 1rem;
+    margin-bottom: 0.15rem;
+    padding: 0.2rem 1rem 0.2rem 1rem;
+    background: $todo-item-header-color;
+    border-radius: $border-radius $border-radius 0 0;
 		@include flexbox(row, space-between);
-
-		h3 {
-			text-align: left;
-			margin-bottom: 0.5rem;
-		}
 	}
+  
+  article { 
+    header {
+      @include flexbox(row, start);
+      padding: 0.5rem 1rem;
+
+      h3 {
+        text-align: left;
+        margin: 0 0.5rem;
+      }
+    }   
+  }
 }
 </style>

@@ -1,5 +1,9 @@
 <template>
-  <input type="text" v-model="internalValue" :placeholder="placeholder" />
+  <input 
+		type="text" 
+		v-model="internalValue" 
+		:placeholder="placeholder" 
+	/>
 </template>
 
 <script lang="ts">
@@ -14,7 +18,7 @@ export default defineComponent({
     placeholder: {
       type: String as PropType<string>,
       default: "",
-    },
+    }
   },
   emits: ["update:modelValue"],
 

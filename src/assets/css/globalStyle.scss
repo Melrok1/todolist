@@ -6,10 +6,26 @@
   box-sizing: border-box;
 }
 
+.success-message,
+.error-message,
+.info-message,
+.warning-message {
+  font-size: $font-sm;
+  font-weight: 300;
+}
+
 .success-message {
   color: $color-success;
 }
 
 .error-message {
   color: $color-error;
+}
+
+.info-message {
+  color: $color-info;
+}
+
+.warning-message {
+  color: $color-warning;
 }

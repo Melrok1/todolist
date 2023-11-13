@@ -1,8 +1,10 @@
 <template>
   <div class="add-new-todo-wrapper">
-    <text-input v-model="title" placeholder="test" />
-    <text-input v-model="content" placeholder="test2" />
+    <text-input v-model="title" placeholder="Add title"/>
+    <text-input v-model="content" placeholder="Add todo content"/>
     <date-picker v-model="expirationDate" />
+    <alert-message v-if="titleError" :message="titleError" type="warning" />
+    <alert-message v-if="contentError" :message="contentError" type="warning" />
     <div class="add-new-todo-buttons">
       <button @click="saveTodo">Save</button>
       <button @click="closeAddTodoForm">Cancel</button>
@@ -11,28 +13,49 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, watch } from "vue";
 import { useStore } from "vuex";
+import { validateTitle, validateContent } from "@/ts/validation";
 import DatePicker from "./InputComponents/DatePicker.vue";
 import TextInput from "@/components/InputComponents/TextInput.vue";
+import AlertMessage from "@/components/Messages/AlertMessage.vue";
 
 export default defineComponent({
   name: "AddNewTodoForm",
   components: {
     DatePicker,
     TextInput,
+    AlertMessage
   },
   setup() {
     const store = useStore();
-    const title = ref("");
-    const content = ref("");
+    const title = ref<string>('');
+    const content = ref<string>('');
     const expirationDate = ref<Date | null>(null);
+    const titleError = ref<string>('');
+    const contentError = ref<string>('');
+
+    watch(title, (newTitle) => {
+      titleError.value = validateTitle(newTitle, 20);
+    });
+
+    watch(content, (newContent) => {
+      contentError.value = validateContent(newContent);
+    });
 
     const closeAddTodoForm = () => {
       store.dispatch("modalState/setAddNewTodoModal", false);
     };
 
     const saveTodo = () => {
+
+      titleError.value = validateTitle(title.value, 20);
+      contentError.value = validateContent(content.value);
+
+      if (titleError.value || contentError.value) {
+        return;
+      }
+
       const newTodo = {
         title: title.value,
         content: content.value,
@@ -44,11 +67,13 @@ export default defineComponent({
     };
 
     return {
-      closeAddTodoForm,
       saveTodo,
+      closeAddTodoForm,
       title,
       content,
       expirationDate,
+      titleError,
+      contentError
     };
   },
 });

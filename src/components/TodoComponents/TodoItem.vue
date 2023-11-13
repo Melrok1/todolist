@@ -4,6 +4,9 @@
       <span :class="isRemainingTime ? 'success-message' : 'error-message'">{{ remainingTime }}</span>
       <h3>{{ todo.title }}</h3>
 			<button>Delete</button>
+      <!-- 
+        <icon name="checkbox"/>
+      -->
     </header>
     <article>
       <span>{{ todo.content }}</span>
@@ -14,9 +17,13 @@
 <script lang="ts">
 import { defineComponent, ref, PropType, onMounted, onUnmounted, toRefs } from "vue";
 import { TodoItemType } from "@/components/interface/interface";
+import Icon from "@/components/Icons/Icon.vue";
 
 export default defineComponent({
   name: "TodoItem",
+	components: {
+		//Icon
+	},
   props: {
     todo: {
       type: Object as PropType<TodoItemType>,
@@ -25,7 +32,7 @@ export default defineComponent({
   },
   setup(props) {
 		const { todo } = toRefs(props);
-    const remainingTime = ref<string>("");
+    const remainingTime = ref<string>('');
 		let isRemainingTime = ref<boolean>(true);
 
     const calculateRemainingTime = () => {
@@ -41,10 +48,12 @@ export default defineComponent({
         const minutes = Math.floor((timeDiff / 1000 / 60) % 60);
         const seconds = Math.floor((timeDiff / 1000) % 60);
 
-        remainingTime.value = `${days} day${days === 1 ? '' : 's'} ${hours}:${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+        remainingTime.value = `${days} day${days === 1 ? '' : 's'} 
+        ${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+
 				isRemainingTime.value = true;
       } else {
-        remainingTime.value = "passed";
+        remainingTime.value = 'passed';
 				isRemainingTime.value = false;
         clearInterval(interval);
       }

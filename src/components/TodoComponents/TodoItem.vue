@@ -1,17 +1,15 @@
 <template>
   <div class="todo-item-wrapper">
     <header>
+      <icon name="edit" />
       <span :class="isRemainingTime ? 'success-message' : 'error-message'">{{ remainingTime }}</span>
-      <h3>{{ todo.title }}</h3>
-      <div class="icon-wrapper">
-        <icon name="edit" />
-        <icon name="trash" />
-      </div>
+      <icon name="trash" />
       <!-- 
         <icon name="checkbox"/>
       -->
     </header>
     <article>
+      <h3>{{ todo.title }}</h3>
       <span>{{ todo.content }}</span>
     </article>
   </div>
@@ -91,6 +89,7 @@ export default defineComponent({
 
 	header {
 		flex-wrap: wrap;
+    margin-bottom: 1rem;
 		@include flexbox(row, space-between);
 
 		h3 {
@@ -98,13 +97,5 @@ export default defineComponent({
 			margin-bottom: 0.5rem;
 		}
 	}
-}
-
-.icon-wrapper {
-  @include flexbox;
-
-  &:first-child {
-    margin-right: 0.5rem;
-  }
 }
 </style>

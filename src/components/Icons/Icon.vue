@@ -50,6 +50,10 @@ export default defineComponent({
     }
   }
 
+  .icon-edit:hover {
+    fill: $color-success;
+  }
+
   .icon-sm {
     width: 1rem;
     height: 1rem;

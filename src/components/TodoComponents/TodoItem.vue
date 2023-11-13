@@ -3,7 +3,10 @@
     <header>
       <span :class="isRemainingTime ? 'success-message' : 'error-message'">{{ remainingTime }}</span>
       <h3>{{ todo.title }}</h3>
-      <icon name="trash" />
+      <div class="icon-wrapper">
+        <icon name="edit" />
+        <icon name="trash" />
+      </div>
       <!-- 
         <icon name="checkbox"/>
       -->
@@ -95,6 +98,13 @@ export default defineComponent({
 			margin-bottom: 0.5rem;
 		}
 	}
+}
 
+.icon-wrapper {
+  @include flexbox;
+
+  &:first-child {
+    margin-right: 0.5rem;
+  }
 }
 </style>

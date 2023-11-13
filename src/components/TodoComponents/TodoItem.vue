@@ -3,7 +3,7 @@
     <header>
       <span :class="isRemainingTime ? 'success-message' : 'error-message'">{{ remainingTime }}</span>
       <h3>{{ todo.title }}</h3>
-			<button>Delete</button>
+      <icon name="trash" />
       <!-- 
         <icon name="checkbox"/>
       -->
@@ -22,7 +22,7 @@ import Icon from "@/components/Icons/Icon.vue";
 export default defineComponent({
   name: "TodoItem",
 	components: {
-		//Icon
+		Icon
 	},
   props: {
     todo: {

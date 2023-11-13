@@ -3,7 +3,7 @@
     class="icon-wrapper"
     v-bind="$attrs"
   >
-    <svg :class="`icon-lg icon-${name}`">
+    <svg :class="`icon-${size} icon-${name}`">
       <use :href="iconUrl" />
     </svg>
   </div>
@@ -19,11 +19,13 @@ export default defineComponent({
     name: {
       type: String as PropType<string>,
       required: true,
+    },
+    size: {
+      type: String as PropType<'sm'|'md'|'lg'>,
+      default: 'md'
     }
   },
   setup(props) {
-		//const iconsPath = '@/assets/svg/spritesheets.svg';
-
     const iconUrl = computed(() => {
       return `${iconPath}#icon-${props.name}`;
     });
@@ -35,8 +37,32 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .icon-wrapper {
   transition: all 0.5s;
+
+  [class^="icon-"] {
+    cursor: pointer;
+    fill: $color-text;
+
+    &:hover {
+      fill: $color-error;
+    }
+  }
+
+  .icon-sm {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .icon-md {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .icon-lg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 }
 </style>

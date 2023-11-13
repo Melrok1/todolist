@@ -85,18 +85,15 @@ export default defineComponent({
 	top: 15%;
 	left: 50%;
 	transform: translate(-50%,-50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   max-width: 90%;
   margin: 1rem auto 3rem;
   padding: 1rem;
-  border: 1px solid rgb(179, 179, 179);
-  background: rgb(235, 235, 235);
+  border: 1px solid #b3b3b3;
+  background: #ebebeb;
   border-radius: $border-radius;
   box-shadow: $shadow-1;
-
+  
+  @include flexbox(column);
   @include response-above(sm) {
     max-width: 40rem;
   }

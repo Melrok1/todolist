@@ -78,11 +78,8 @@ export default defineComponent({
   border-radius: $border-radius;
 
 	header {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
 		flex-wrap: wrap;
+		@include flexbox(row, space-between);
 
 		h3 {
 			text-align: left;

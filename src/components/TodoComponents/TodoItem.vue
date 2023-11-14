@@ -72,6 +72,8 @@ export default defineComponent({
 
     const editTodoItem = () => {
       console.log("edit");
+      store.dispatch("modalState/setEditTodoModal", true);
+      store.dispatch("modalState/setCurrentTodoId", todo.value.id);
     };
 
     const toggleIsDone = (state: boolean) => {

@@ -12,4 +12,6 @@ export interface TodoStateType {
 
 export interface ModalStateType {
   isAddNewTodoModalVisible: boolean;
+  isEditTodoModalVisible: boolean;
+  currentTodoId: number | null;
 }

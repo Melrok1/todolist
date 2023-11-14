@@ -9,6 +9,9 @@ const state: TodoStateType = {
 // getters
 const getters: GetterTree<TodoStateType, object> = {
   allTodos: (state) => state.todos,
+  getTodoById: (state) => (id: number) => {
+    return state.todos.find((t) => t.id === id);
+  },
 };
 
 // actions

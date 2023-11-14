@@ -28,6 +28,9 @@ const actions: ActionTree<TodoStateType, object> = {
   deleteTodo({ commit }, todoId: number) {
     commit("DELETE_TODO", todoId);
   },
+  updateTodo({ commit }, payload: { updatedTodo: object; todoId: number }) {
+    commit("UPDATE_TODO", payload);
+  },
 };
 
 // mutations
@@ -36,6 +39,7 @@ const mutations: MutationTree<TodoStateType> = {
     state.todos.push(todoItem);
   },
   TOGGLE_TODO_DONE(state, payload) {
+    // focus todo using find
     const todo = state.todos.find((t) => t.id === payload.todoId);
     if (todo) {
       todo.isDone = payload.isDoneState;
@@ -43,6 +47,18 @@ const mutations: MutationTree<TodoStateType> = {
   },
   DELETE_TODO(state, todoId) {
     state.todos = state.todos.filter((t) => t.id !== todoId);
+  },
+  UPDATE_TODO(state, payload) {
+    // focus todo using findIndex
+    const index = state.todos.findIndex((t) => t.id === payload.todoId);
+    if (index !== -1) {
+      const originalTodo = state.todos[index];
+      const mergedTodo = {
+        ...originalTodo,
+        ...payload.updatedTodo,
+      };
+      state.todos[index] = mergedTodo;
+    }
   },
 };
 

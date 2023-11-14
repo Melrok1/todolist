@@ -36,6 +36,7 @@
         />
         <h3 :class="{'header-done': todo.isDone}">{{ todo.title }}</h3>
       </header>
+      <alert-message type="info" :message="`Expiration: ${formatDate}`"/>
       <span>{{ todo.content }}</span>
     </article>
 
@@ -43,15 +44,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, PropType, onMounted, onUnmounted, toRefs } from "vue";
+import { defineComponent, ref, PropType, onMounted, onUnmounted, 
+  toRefs, watch, computed } from "vue";
 import { useStore } from "vuex";
 import { TodoItemType } from "@/ts/interface";
+import { formatDueDate } from "@/ts/dateFormatting";
 import Icon from "@/components/Icons/Icon.vue";
+import AlertMessage from "@/components/Messages/AlertMessage.vue";
 
 export default defineComponent({
   name: "TodoItem",
 	components: {
-		Icon
+		Icon, AlertMessage
 	},
   props: {
     todo: {
@@ -64,6 +68,10 @@ export default defineComponent({
 		const { todo } = toRefs(props);
     const remainingTime = ref<string>('');
 		let isRemainingTime = ref<boolean>(true);
+
+    const formatDate = computed(() => {
+      return formatDueDate(todo.value.dueDate);
+    });
 
     const deleteTodoItem = () => {
       console.log("delete");
@@ -106,6 +114,14 @@ export default defineComponent({
       }
     };
 
+    watch(todo, (newTodo, oldTodo) => {
+      if (newTodo.dueDate !== oldTodo.dueDate) {
+        clearInterval(interval);
+        calculateRemainingTime();
+        interval = setInterval(calculateRemainingTime, 1000);
+      }
+    }, { deep: true });
+
     let interval = setInterval(calculateRemainingTime, 1000);
 
     onMounted(() => {
@@ -121,7 +137,8 @@ export default defineComponent({
 			isRemainingTime,
       toggleIsDone,
       deleteTodoItem,
-      editTodoItem
+      editTodoItem,
+      formatDate
     };
   },
 });
@@ -160,6 +177,11 @@ export default defineComponent({
         color: $color-secondary;
       }
     }   
+  }
+
+  .alert-message-wrapper {
+    margin-left: 1rem;
+    text-align: left;
   }
 }
 </style>

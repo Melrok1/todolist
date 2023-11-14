@@ -57,9 +57,11 @@ export default defineComponent({
       }
 
       const newTodo = {
+        id: Date.now(),
         title: title.value,
         content: content.value,
         dueDate: expirationDate.value,
+        isDone: false
       };
 
       store.dispatch("todoData/addTodo", newTodo);

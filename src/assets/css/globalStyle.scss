@@ -29,3 +29,15 @@
 .warning-message {
   color: $color-warning;
 }
+
+.icon-sm {
+  @include icon-size(sm);
+}
+
+.icon-md {
+  @include icon-size(md);
+}
+
+.icon-lg {
+  @include icon-size(lg);
+}

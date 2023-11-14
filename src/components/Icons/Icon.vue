@@ -1,7 +1,12 @@
 <template>
   <div
-    class="icon-wrapper"
+    class="div-icon-wrapper"
     v-bind="$attrs"
+    :style="{
+      '--icon-color': color,
+      '--icon-hover-color': hoverColor,
+      '--icon-active-color': activeColor
+    }"
   >
     <svg :class="`icon-${size} icon-${name}`">
       <use :href="iconUrl" />
@@ -23,6 +28,18 @@ export default defineComponent({
     size: {
       type: String as PropType<'sm'|'md'|'lg'>,
       default: 'md'
+    },
+    color: {
+      type: String as PropType<string|undefined>,
+      default: '#333333'
+    },
+    hoverColor: {
+      type: String as PropType<string|undefined>,
+      default: '#000000'
+    },
+    activeColor: {
+      type: String as PropType<string|undefined>,
+      default: '#1d6c10'
     }
   },
   setup(props) {
@@ -38,35 +55,20 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.icon-wrapper {
+.div-icon-wrapper {
   transition: all 0.5s;
-
+  
   [class^="icon-"] {
     cursor: pointer;
-    fill: $color-text;
+    fill: var(--icon-color);
 
     &:hover {
-      fill: $color-error;
+      fill: var(--icon-hover-color);
     }
-  }
 
-  .icon-edit:hover {
-    fill: $color-success;
-  }
-
-  .icon-sm {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  .icon-md {
-    width: 1.2rem;
-    height: 1.2rem;
-  }
-
-  .icon-lg {
-    width: 1.5rem;
-    height: 1.5rem;
+    &:active {
+      fill: var(--icon-active-color);
+    }
   }
 }
 </style>

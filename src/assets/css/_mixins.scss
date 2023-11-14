@@ -16,3 +16,11 @@
   justify-content: $justify;
   align-items: $align;
 }
+
+@mixin icon-size($icon-size) {
+  @if map-has-key($icon-sizes, $icon-size) {
+    $icon-size-value: map-get($icon-sizes, $icon-size);
+    width: $icon-size-value;
+    height: $icon-size-value;
+  }
+}

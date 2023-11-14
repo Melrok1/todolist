@@ -1,5 +1,5 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
-import { ModalStateType } from "@/components/interface/interface";
+import { ModalStateType } from "@/ts/interface";
 
 // init state
 const state: ModalStateType = {

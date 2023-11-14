@@ -1,27 +1,41 @@
 <template>
   <div class="todo-item-wrapper">
+
     <div class="todo-control">
-      <icon name="edit" />
+      <icon name="edit" hoverColor="#0056b3" activeColor="#0056b3"/>
       <span :class="isRemainingTime ? 'success-message' : 'error-message'">{{ remainingTime }}</span>
-      <icon name="trash" />
-      <!-- 
-        <icon name="checkbox"/>
-      -->
+      <icon name="trash" hoverColor="#ad0c0c" activeColor="#ad0c0c"/>
     </div>
+
     <article>
       <header>
-        <icon name="checkbox" />
-        <h3>{{ todo.title }}</h3>
-
+        <icon 
+          v-if="!todo.isDone" 
+          name="square" 
+          hoverColor="#1d6c10"
+          size="lg"
+          @click="toggleIsDone(true)"
+        />
+        <icon 
+          v-else-if="todo.isDone" 
+          name="square-check" 
+          color="#1d6c10"
+          hoverColor="#1d6c10"
+          size="lg"
+          @click="toggleIsDone(false)"
+        />
+        <h3 :class="{'header-done': todo.isDone}">{{ todo.title }}</h3>
       </header>
       <span>{{ todo.content }}</span>
     </article>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, PropType, onMounted, onUnmounted, toRefs } from "vue";
-import { TodoItemType } from "@/components/interface/interface";
+import { useStore } from "vuex";
+import { TodoItemType } from "@/ts/interface";
 import Icon from "@/components/Icons/Icon.vue";
 
 export default defineComponent({
@@ -36,9 +50,16 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const store = useStore();
 		const { todo } = toRefs(props);
     const remainingTime = ref<string>('');
 		let isRemainingTime = ref<boolean>(true);
+
+    const toggleIsDone = (state: boolean) => {
+      if(todo.value.id) {
+        store.dispatch("todoData/toggleTodoDone", {todoId: todo.value.id, isDoneState:state});
+      }
+    };
 
     const calculateRemainingTime = () => {
 			if(todo.value.dueDate === null) return;
@@ -76,7 +97,8 @@ export default defineComponent({
 
     return {
 			remainingTime,
-			isRemainingTime
+			isRemainingTime,
+      toggleIsDone
     };
   },
 });
@@ -108,6 +130,11 @@ export default defineComponent({
       h3 {
         text-align: left;
         margin: 0 0.5rem;
+      }
+
+      h3.header-done {
+        text-decoration: line-through;
+        color: $color-secondary;
       }
     }   
   }

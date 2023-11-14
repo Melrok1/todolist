@@ -1,7 +1,9 @@
 export interface TodoItemType {
+  id: string | number;
   title: string;
   content: string;
   dueDate: Date | null;
+  isDone: boolean;
 }
 
 export interface TodoStateType {

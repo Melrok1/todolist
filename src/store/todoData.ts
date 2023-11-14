@@ -22,6 +22,9 @@ const actions: ActionTree<TodoStateType, object> = {
   ) {
     commit("TOGGLE_TODO_DONE", payload);
   },
+  deleteTodo({ commit }, todoId: number) {
+    commit("DELETE_TODO", todoId);
+  },
 };
 
 // mutations
@@ -34,6 +37,9 @@ const mutations: MutationTree<TodoStateType> = {
     if (todo) {
       todo.isDone = payload.isDoneState;
     }
+  },
+  DELETE_TODO(state, todoId) {
+    state.todos = state.todos.filter((t) => t.id !== todoId);
   },
 };
 

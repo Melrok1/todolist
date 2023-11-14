@@ -2,9 +2,19 @@
   <div class="todo-item-wrapper">
 
     <div class="todo-control">
-      <icon name="edit" hoverColor="#0056b3" activeColor="#0056b3"/>
+      <icon 
+        name="edit" 
+        hoverColor="#0056b3" 
+        activeColor="#0056b3"
+        @click="editTodoItem"
+      />
       <span :class="isRemainingTime ? 'success-message' : 'error-message'">{{ remainingTime }}</span>
-      <icon name="trash" hoverColor="#ad0c0c" activeColor="#ad0c0c"/>
+      <icon 
+        name="trash" 
+        hoverColor="#ad0c0c" 
+        activeColor="#ad0c0c"
+        @click="deleteTodoItem"
+      />
     </div>
 
     <article>
@@ -55,6 +65,15 @@ export default defineComponent({
     const remainingTime = ref<string>('');
 		let isRemainingTime = ref<boolean>(true);
 
+    const deleteTodoItem = () => {
+      console.log("delete");
+      store.dispatch("todoData/deleteTodo", todo.value.id);
+    };
+
+    const editTodoItem = () => {
+      console.log("edit");
+    };
+
     const toggleIsDone = (state: boolean) => {
       if(todo.value.id) {
         store.dispatch("todoData/toggleTodoDone", {todoId: todo.value.id, isDoneState:state});
@@ -98,7 +117,9 @@ export default defineComponent({
     return {
 			remainingTime,
 			isRemainingTime,
-      toggleIsDone
+      toggleIsDone,
+      deleteTodoItem,
+      editTodoItem
     };
   },
 });

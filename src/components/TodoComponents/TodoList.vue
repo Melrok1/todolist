@@ -1,6 +1,6 @@
 <template>
   <div class="todo-list-wrapper">
-		<div v-for="(todo, index) in getTodoFromStore" :key="index">
+		<div v-for="(todo, index) in filteredTodos" :key="index">
       <todo-item-vue :todo="todo"/>
 		</div>
 	</div>
@@ -15,6 +15,12 @@ export default defineComponent({
 	name: 'TodoList',
   components: {
     TodoItemVue
+  },
+  props: {
+    filteredTodos: {
+      type: Object,
+      required: true,
+    }
   },
   setup() {
     const store = useStore();

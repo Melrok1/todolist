@@ -3,9 +3,17 @@
     <div class="control-panel">
       <button @click="toggleAddTodoForm">Add new todo</button>
       <div class="searchbar">
+        <div class="section-label">
+          <span>Search</span>
+          <icon name="glass" size="md" color="#333333"/>
+        </div>
         <input type="text" v-model="searchQuery" />
       </div>
       <div class="filter-buttons">
+        <div class="section-label">
+          <span>Filter</span>
+          <icon name="filter" size="md" color="#333333"/>
+        </div>
         <button
           :class="['filter-button', { active: currentFilter === 'all' }]"
           @click="setFilter('all')"
@@ -41,10 +49,11 @@
 <script lang="ts">
 import { defineComponent, computed, ref } from "vue";
 import { useStore } from "vuex";
+import { TodoItemType } from "@/ts/interface";
 import AddNewTodoVue from "@/components/AddNewTodoForm.vue";
 import EditTodoForm from "@/components/EditTodoForm.vue";
 import TodoListVue from "@/components/TodoComponents/TodoList.vue";
-import { TodoItemType } from "@/ts/interface";
+import Icon from "@/components/Icons/Icon.vue";
 
 export default defineComponent({
   name: "HomeView",
@@ -52,6 +61,7 @@ export default defineComponent({
     AddNewTodoVue,
     TodoListVue,
     EditTodoForm,
+    Icon
   },
   setup() {
     const store = useStore();
@@ -145,22 +155,18 @@ export default defineComponent({
   @include flexbox;
 }
 
-.filter-buttons::after,
-.searchbar::after {
+.section-label {
   position: absolute;
   top: 0;
-  left: 3rem;
+  left: 1rem;
   transform: translate(0, -50%);
-  background: #fff;
   padding: 0.25rem;
   color: $color-text;
-}
+  background: #fff;
+  @include flexbox;
 
-.filter-buttons::after {
-  content: "Filters";
-}
-
-.searchbar::after {
-  content: "Searchbar";
+  span {
+    margin-right: 0.35rem;
+  }
 }
 </style>

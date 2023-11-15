@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="control-panel">
-      <button @click="toggleAddTodoForm">Add new list</button>
+      <button @click="toggleAddTodoForm">Add new todo</button>
       <div class="searchbar">
         <input type="text" v-model="searchQuery" />
       </div>

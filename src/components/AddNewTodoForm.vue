@@ -2,6 +2,7 @@
   <div class="add-new-todo-wrapper">
     <text-input v-model="title" placeholder="Add title"/>
     <text-input v-model="content" placeholder="Add todo content"/>
+    <text-area-input />
     <date-picker v-model="expirationDate" />
     <alert-message v-if="titleError" :message="titleError" type="warning" />
     <alert-message v-if="contentError" :message="contentError" type="warning" />
@@ -18,6 +19,7 @@ import { useStore } from "vuex";
 import { validateTitle, validateContent } from "@/ts/validation";
 import DatePicker from "./InputComponents/DatePicker.vue";
 import TextInput from "@/components/InputComponents/TextInput.vue";
+import TextAreaInput from "./InputComponents/TextAreaInput.vue";
 import AlertMessage from "@/components/Messages/AlertMessage.vue";
 
 export default defineComponent({
@@ -25,7 +27,8 @@ export default defineComponent({
   components: {
     DatePicker,
     TextInput,
-    AlertMessage
+    AlertMessage,
+    TextAreaInput
   },
   setup() {
     const store = useStore();
@@ -86,7 +89,7 @@ export default defineComponent({
 	position: absolute;
 	top: 15%;
 	left: 50%;
-	transform: translate(-50%,-50%);
+	transform: translateX(-50%);
   max-width: 90%;
   margin: 1rem auto 3rem;
   padding: 1rem;

@@ -41,3 +41,36 @@
 .icon-lg {
   @include icon-size(lg);
 }
+
+button {
+  padding: 0.25rem 0.5rem;
+  border-radius: $border-radius;
+  background: $color-primary-light;
+  color: $color-text;
+  border: $border;
+
+  &.active {
+    box-shadow: $shadow-1;
+  }
+}
+
+.filter-button {
+  position: relative;
+  padding-left: 1.5rem;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(100%, -50%);
+    width: 8px;
+    height: 8px;
+    background: $color-secondary;
+    border-radius: 50%;
+  }
+
+  &.active::after {
+    background: $color-primary;
+  }
+}

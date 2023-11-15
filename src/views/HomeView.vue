@@ -3,18 +3,38 @@
     <div class="control-panel">
       <button @click="toggleAddTodoForm">Add new list</button>
       <div class="searchbar">
-        <input type="text" v-model="searchQuery"/>
+        <input type="text" v-model="searchQuery" />
       </div>
-      <div class="buttons">
-        <button @click="setFilter('all')">show all</button>
-        <button @click="setFilter('done')">show all done</button>
-        <button @click="setFilter('inProgress')">show in progress</button>
-        <button @click="setFilter('noDeadline')">show without deadline</button>
+      <div class="filter-buttons">
+        <button
+          :class="['filter-button', { active: currentFilter === 'all' }]"
+          @click="setFilter('all')"
+        >
+          All
+        </button>
+        <button
+          :class="['filter-button', { active: currentFilter === 'done' }]"
+          @click="setFilter('done')"
+        >
+          Done
+        </button>
+        <button
+          :class="['filter-button', { active: currentFilter === 'inProgress' }]"
+          @click="setFilter('inProgress')"
+        >
+          In progress
+        </button>
+        <button
+        :class="['filter-button', { active: currentFilter === 'noDeadline' }]"
+          @click="setFilter('noDeadline')"
+        >
+          No deadline
+        </button>
       </div>
     </div>
     <add-new-todo-vue v-if="isAddTodoFormVisible" />
     <edit-todo-form v-if="isEditTodoModalVisible" />
-    <todo-list-vue :filteredTodos="filteredTodos"/>
+    <todo-list-vue :filteredTodos="filteredTodos" />
   </div>
 </template>
 
@@ -87,7 +107,42 @@ export default defineComponent({
       toggleAddTodoForm,
       setFilter,
       filteredTodos,
+      currentFilter,
     };
   },
 });
 </script>
+
+
+<style lang="scss" scoped>
+.filter-buttons {
+  @include flexbox(row, start, center);
+  flex-wrap: wrap;
+  position: relative;
+  max-width: $search-buttons-max-width;
+  margin: 1rem auto;
+  border: $border;
+  border-radius: $border-radius;
+  padding: 1rem 1rem 0.5rem 1rem;
+
+  button {
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+
+  &::after {
+    content: "Filters";
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(50%, -50%);
+    background: #fff;
+    padding: 0.25rem;
+    color: $color-text;
+  }
+}
+</style>

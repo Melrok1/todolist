@@ -2,8 +2,10 @@
 $color-shadow: #000000;
 $color-border: #cccccc;
 $color-text: #333333;
+$color-text-light: #cccccc;
 $color-primary: #0056b3;
-$color-secondary: #6c757d;
+$color-primary-light: #d0e7ff;
+$color-secondary: #a9b2b9;
 $color-success: #1d6c10;
 $color-error: #ad0c0c;
 $color-warning: #ff9800;
@@ -37,6 +39,7 @@ $breakpoints: (
 
 // element sizes
 $todo-item-max-width: 30rem;
+$search-buttons-max-width: 30rem;
 
 $icon-sm: 1rem;
 $icon-md: 1.2rem;

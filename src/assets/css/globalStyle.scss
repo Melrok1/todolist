@@ -83,3 +83,23 @@ textarea {
   border-radius: $border-radius;
   border: $border;
 }
+
+.input {
+  max-height: 2.1rem;
+  font-size: $font-lg !important;
+  color: $color-text;
+}
+
+textarea::placeholder,
+input::placeholder {
+  font-size: $font-md;
+  font-weight: 300;
+  color: $color-placeholder;
+}
+
+.dp__input {
+  width: 100%;
+  border-radius: $border-radius;
+  border: $border;
+  max-height: 2.1rem;
+}

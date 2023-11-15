@@ -1,12 +1,11 @@
 <template>
   <div class="add-new-todo-wrapper">
     <text-input v-model="title" placeholder="Add title"/>
-    <text-input v-model="content" placeholder="Add todo content"/>
-    <text-area-input />
-    <date-picker v-model="expirationDate" />
+    <text-area-input v-model="content" placeholder="Add todo content"/>
+    <date-picker v-model="expirationDate" placeholder="Add expiration date"/>
     <alert-message v-if="titleError" :message="titleError" type="warning" />
     <alert-message v-if="contentError" :message="contentError" type="warning" />
-    <div class="add-new-todo-buttons">
+    <div class="buttons-wrapper">
       <button @click="saveTodo">Save</button>
       <button @click="closeAddTodoForm">Cancel</button>
     </div>
@@ -97,10 +96,16 @@ export default defineComponent({
   background: #ebebeb;
   border-radius: $border-radius;
   box-shadow: $shadow-1;
-  
   @include flexbox(column);
   @include response-above(sm) {
     max-width: 40rem;
+  }
+
+  .buttons-wrapper {
+    @include flexbox;
+		button:first-of-type {
+			margin-right: 1rem;
+		}
   }
 }
 </style>

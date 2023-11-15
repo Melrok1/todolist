@@ -1,15 +1,17 @@
 <template>
   <div class="edit-todo-form-wrapper">
     <text-input v-model="title" placeholder="Add title"/>
-    <text-input v-model="content" placeholder="Add todo content"/>
+		<text-area-input v-model="content" placeholder="Add todo content"/>
     <date-picker v-model="dueDate" />
-		<p>{{  isDone }}</p>
+		<p>{{ isDone }}</p>
 		
 		<alert-message v-if="titleError" :message="titleError" type="warning" />
 		<alert-message v-if="contentError" :message="contentError" type="warning" />
 		
-		<button @click="updateTodo">Save</button>
-		<button @click="closeEditForm">close</button>
+		<div class="buttons-wrapper">
+			<button @click="updateTodo">Save</button>
+			<button @click="closeEditForm">close</button>
+		</div>
 	</div>
 </template>
 
@@ -19,6 +21,7 @@ import { useStore } from "vuex";
 import { validateTitle, validateContent } from "@/ts/validation";
 import DatePicker from "./InputComponents/DatePicker.vue";
 import TextInput from "@/components/InputComponents/TextInput.vue";
+import TextAreaInput from "./InputComponents/TextAreaInput.vue";
 import AlertMessage from "@/components/Messages/AlertMessage.vue";
 
 export default defineComponent({
@@ -26,7 +29,8 @@ export default defineComponent({
 	components: {
 		DatePicker,
     TextInput,
-    AlertMessage
+    AlertMessage,
+		TextAreaInput
 	},
   setup() {
     const store = useStore();
@@ -99,7 +103,7 @@ export default defineComponent({
 	position: absolute;
 	top: 15%;
 	left: 50%;
-	transform: translate(-50%,-50%);
+	transform: translateX(-50%);
   max-width: 90%;
   margin: 1rem auto 3rem;
   padding: 1rem;
@@ -107,11 +111,17 @@ export default defineComponent({
   background: #ebebeb;
   border-radius: $border-radius;
   box-shadow: $shadow-1;
-  
   @include flexbox(column);
   @include response-above(sm) {
     max-width: 40rem;
   }
+
+	.buttons-wrapper {
+		@include flexbox;
+		button:first-of-type {
+			margin-right: 1rem;
+		}
+	}
 }
 
 </style>

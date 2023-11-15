@@ -37,7 +37,7 @@
         <h3 :class="{'header-done': todo.isDone}">{{ todo.title }}</h3>
       </header>
       <alert-message type="info" :message="`Expiration: ${formatDate}`"/>
-      <span>{{ todo.content }}</span>
+      <span class="todo-content">{{ todo.content }}</span>
     </article>
 
   </div>
@@ -181,6 +181,12 @@ export default defineComponent({
 
   .alert-message-wrapper {
     margin-left: 1rem;
+    text-align: left;
+  }
+
+  .todo-content {
+    display: block;
+    margin: 0.75rem 1rem;
     text-align: left;
   }
 }

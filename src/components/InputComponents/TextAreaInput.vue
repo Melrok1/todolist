@@ -2,16 +2,17 @@
   <textarea 
     ref="textareaRef"
     v-model="internalValue" 
+    class="text-area-wrapper"
     :placeholder="placeholder"
     @input="adjustHeight"
-  />
+  ></textarea>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, computed, watch } from "vue";
+import { defineComponent, PropType, ref, computed, watch, onMounted, nextTick } from "vue";
 
 export default defineComponent({
-	name:"Text-area-input",
+  name: "Text-area-input",
   props: {
     modelValue: {
       type: String as PropType<string>,
@@ -33,16 +34,17 @@ export default defineComponent({
     const textareaRef = ref<HTMLTextAreaElement | null>(null);
 
     const adjustHeight = () => {
-      if (textareaRef.value) {
-        textareaRef.value.style.height = 'auto';
-        textareaRef.value.style.height = textareaRef.value.scrollHeight + 'px';
-      }
+      nextTick(() => {
+        if (textareaRef.value) {
+          textareaRef.value.style.height = 'auto';
+          textareaRef.value.style.height = textareaRef.value.scrollHeight + 'px';
+        }
+      });
     };
 
-    // Ako reakcia na zmenu hodnoty, prispôsobíme výšku
-    watch(internalValue, () => {
-      adjustHeight();
-    });
+    watch(internalValue, adjustHeight);
+
+    onMounted(adjustHeight);
 
     return {
       internalValue,

@@ -115,34 +115,52 @@ export default defineComponent({
 
 
 <style lang="scss" scoped>
+
+.searchbar,
 .filter-buttons {
-  @include flexbox(row, start, center);
+  display: flex;
   flex-wrap: wrap;
   position: relative;
   max-width: $search-buttons-max-width;
   margin: 1rem auto;
   border: $border;
   border-radius: $border-radius;
-  padding: 1rem 1rem 0.5rem 1rem;
+  padding: 1rem 1rem 0.5rem 1rem; 
+}
 
+.filter-buttons {
+  @include flexbox(row, start, center);
+  
   button {
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
-
+    
     &:last-of-type {
       margin-right: 0;
     }
   }
+}
 
-  &::after {
-    content: "Filters";
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translate(50%, -50%);
-    background: #fff;
-    padding: 0.25rem;
-    color: $color-text;
-  }
+.searchbar {
+  @include flexbox;
+}
+
+.filter-buttons::after,
+.searchbar::after {
+  position: absolute;
+  top: 0;
+  left: 3rem;
+  transform: translate(0, -50%);
+  background: #fff;
+  padding: 0.25rem;
+  color: $color-text;
+}
+
+.filter-buttons::after {
+  content: "Filters";
+}
+
+.searchbar::after {
+  content: "Searchbar";
 }
 </style>

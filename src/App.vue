@@ -6,6 +6,21 @@
   <router-view/>
 </template>
 
+<script lang="ts">
+import { defineComponent, onMounted } from 'vue';
+import { useStore } from 'vuex';
+
+export default defineComponent({
+  name: 'App',
+  setup() {
+    const store = useStore();
+    onMounted(() => {
+      store.dispatch('todoData/fetchTodos');
+    });
+  }
+});
+</script>
+
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

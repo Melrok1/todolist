@@ -1,5 +1,12 @@
 import { MutationTree, ActionTree, GetterTree } from "vuex";
 import { TodoItemType, TodoStateType } from "@/ts/interface";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 
 // init state
 const state: TodoStateType = {
@@ -9,15 +16,21 @@ const state: TodoStateType = {
 // getters
 const getters: GetterTree<TodoStateType, object> = {
   allTodos: (state) => state.todos,
-  getTodoById: (state) => (id: number) => {
+  getTodoById: (state) => (id: string) => {
     return state.todos.find((t) => t.id === id);
   },
 };
 
 // actions
 const actions: ActionTree<TodoStateType, object> = {
-  addTodo({ commit }, todoItem: TodoItemType) {
-    commit("ADD_TODO", todoItem);
+  async addTodo({ commit }, todoItem: TodoItemType) {
+    const db = getFirestore();
+    const todoId = todoItem.id.toString();
+    const todoRef = doc(db, "todos", todoId);
+
+    await setDoc(todoRef, todoItem);
+
+    commit("ADD_TODO", { ...todoItem, id: todoRef.id });
   },
   toggleTodoDone(
     { commit },
@@ -30,6 +43,19 @@ const actions: ActionTree<TodoStateType, object> = {
   },
   updateTodo({ commit }, payload: { updatedTodo: object; todoId: number }) {
     commit("UPDATE_TODO", payload);
+  },
+  async fetchTodos({ commit }) {
+    const db = getFirestore();
+    const todoCollection = collection(db, "todos");
+    const todoSnapshot = await getDocs(todoCollection);
+    const todos = todoSnapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        ...data,
+        dueDate: data.dueDate.toDate(),
+      };
+    });
+    commit("SET_TODOS", todos);
   },
 };
 
@@ -59,6 +85,9 @@ const mutations: MutationTree<TodoStateType> = {
       };
       state.todos[index] = mergedTodo;
     }
+  },
+  SET_TODOS(state, todos) {
+    state.todos = todos;
   },
 };
 

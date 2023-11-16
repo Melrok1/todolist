@@ -1,5 +1,6 @@
 <template>
   <div class="add-new-todo-wrapper">
+    <h4>Add new todo</h4>
     <text-input v-model="title" placeholder="Add title"/>
     <text-area-input v-model="content" placeholder="Add todo content"/>
     <date-picker v-model="expirationDate" placeholder="Add expiration date"/>
@@ -90,6 +91,7 @@ export default defineComponent({
 	left: 50%;
 	transform: translateX(-50%);
   max-width: 90%;
+  width: 90%;
   margin: 1rem auto 3rem;
   padding: 1rem;
   border: 1px solid #b3b3b3;
@@ -98,8 +100,12 @@ export default defineComponent({
   box-shadow: $shadow-1;
   @include flexbox(column);
   @include response-above(sm) {
-    max-width: 40rem;
+    max-width: 25rem;
   }
+  
+  h4 {
+		margin-bottom: 1rem;
+	}
 
   .buttons-wrapper {
     @include flexbox;

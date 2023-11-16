@@ -3,7 +3,27 @@
     <text-input v-model="title" placeholder="Add title"/>
 		<text-area-input v-model="content" placeholder="Add todo content"/>
     <date-picker v-model="dueDate" />
-		<p>{{ isDone }}</p>
+		<div class="todo-is-done">
+			<span>
+				Todo id done: 
+			</span>
+			<icon 
+				v-if="!isDone" 
+				@click="isDone = true"
+				name="square" 
+				size="md" 
+				color="red" 
+				hoverColor="red"
+			/>
+			<icon 
+				v-else 
+				@click="isDone = false"
+				name="square-check" 
+				size="md" 
+				color="green" 
+				hoverColor="green"
+			/>
+		</div>
 		
 		<alert-message v-if="titleError" :message="titleError" type="warning" />
 		<alert-message v-if="contentError" :message="contentError" type="warning" />
@@ -23,6 +43,7 @@ import DatePicker from "./InputComponents/DatePicker.vue";
 import TextInput from "@/components/InputComponents/TextInput.vue";
 import TextAreaInput from "./InputComponents/TextAreaInput.vue";
 import AlertMessage from "@/components/Messages/AlertMessage.vue";
+import Icon from "./Icons/Icon.vue";
 
 export default defineComponent({
 	name: "Edit-todo-form",
@@ -30,7 +51,8 @@ export default defineComponent({
 		DatePicker,
     TextInput,
     AlertMessage,
-		TextAreaInput
+		TextAreaInput,
+		Icon
 	},
   setup() {
     const store = useStore();
@@ -120,6 +142,15 @@ export default defineComponent({
 		@include flexbox;
 		button:first-of-type {
 			margin-right: 1rem;
+		}
+	}
+
+	.todo-is-done {
+		margin: 1rem auto;
+		@include flexbox;
+
+		span {
+			margin-right: 0.25rem;
 		}
 	}
 }

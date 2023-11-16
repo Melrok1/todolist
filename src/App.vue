@@ -31,7 +31,7 @@ export default defineComponent({
 }
 
 nav {
-  padding: 30px;
+  padding: 1.875rem;
 
   a {
     font-weight: bold;

@@ -49,7 +49,7 @@ const actions: ActionTree<TodoStateType, object> = {
       const data = doc.data();
       return {
         ...data,
-        dueDate: data.dueDate?.toDate(),
+        dueDate: data.dueDate ? data.dueDate.toDate() : null,
       };
     });
 

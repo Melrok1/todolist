@@ -3,21 +3,21 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
-  <router-view/>
+  <router-view />
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue';
-import { useStore } from 'vuex';
+import { defineComponent, onMounted } from "vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
   setup() {
     const store = useStore();
     onMounted(() => {
-      store.dispatch('todoData/fetchTodos');
+      store.dispatch("todoData/fetchTodos");
     });
-  }
+  },
 });
 </script>
 

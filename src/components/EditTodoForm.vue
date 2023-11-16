@@ -59,7 +59,7 @@ export default defineComponent({
 			const updatedTodo = {
 				title: title.value,
 				content: content.value,
-				dueDate: dueDate.value,
+				dueDate: dueDate.value ?? null,
 				isDone: isDone.value
 			}
 			store.dispatch("todoData/updateTodo", {updatedTodo, todoId: currentId.value});
@@ -71,7 +71,7 @@ export default defineComponent({
       if (todo) {
         title.value = todo.title;
         content.value = todo.content;
-        dueDate.value = todo.dueDate;
+        dueDate.value = todo.dueDate ?? null;
 				isDone.value = todo.isDone;
       }
     };

@@ -3,19 +3,18 @@
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
-import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
+import { ref, defineComponent } from "vue";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 
-export default {
-	name: 'DatePickerComponent',
+export default defineComponent({
   components: { VueDatePicker },
   setup() {
-		const date = ref<Date | null>(null);
+    const date = ref<Date | null>(null);
 
     return {
-      date
-    }
-  }
-};
+      date,
+    };
+  },
+});
 </script>

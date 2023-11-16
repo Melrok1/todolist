@@ -6,6 +6,7 @@ import {
   getDocs,
   doc,
   setDoc,
+  deleteDoc,
 } from "firebase/firestore";
 
 // init state
@@ -32,18 +33,40 @@ const actions: ActionTree<TodoStateType, object> = {
 
     commit("ADD_TODO", { ...todoItem, id: todoRef.id });
   },
-  toggleTodoDone(
+
+  async toggleTodoDone(
     { commit },
-    payload: { isDoneState: boolean; todoId: number }
+    payload: { isDoneState: boolean; todoId: string }
   ) {
+    const db = getFirestore();
+    const todoRef = doc(db, "todos", payload.todoId.toString());
+
+    // Aktualizujeme Todo vo Firestore
+    await setDoc(todoRef, { isDone: payload.isDoneState }, { merge: true });
+
+    // Aktualizujeme Todo vo Vuexu
     commit("TOGGLE_TODO_DONE", payload);
   },
-  deleteTodo({ commit }, todoId: number) {
+
+  async deleteTodo({ commit }, todoId: number) {
+    const db = getFirestore();
+    const todoRef = doc(db, "todos", todoId.toString());
+    await deleteDoc(todoRef);
+
     commit("DELETE_TODO", todoId);
   },
-  updateTodo({ commit }, payload: { updatedTodo: object; todoId: number }) {
+
+  async updateTodo(
+    { commit },
+    payload: { updatedTodo: TodoItemType; todoId: string }
+  ) {
+    const db = getFirestore();
+    const todoRef = doc(db, "todos", payload.todoId.toString());
+
+    await setDoc(todoRef, payload.updatedTodo, { merge: true });
     commit("UPDATE_TODO", payload);
   },
+
   async fetchTodos({ commit }) {
     const db = getFirestore();
     const todoCollection = collection(db, "todos");
@@ -52,7 +75,7 @@ const actions: ActionTree<TodoStateType, object> = {
       const data = doc.data();
       return {
         ...data,
-        dueDate: data.dueDate.toDate(),
+        dueDate: data.dueDate?.toDate(),
       };
     });
     commit("SET_TODOS", todos);
